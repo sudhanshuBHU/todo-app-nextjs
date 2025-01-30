@@ -17,7 +17,7 @@ export default function Signup() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (password !== confirmPassword) {
-            console.log('Passwords do not match');
+            // console.log('Passwords do not match');
             setError('Passwords do not match');
             return;
         }
@@ -43,12 +43,12 @@ export default function Signup() {
             if (data.status) {
                 router.push('/');
             } else {
-                console.log("error at signup page");
+                // console.log("error at signup page");
                 setError(data.message);
             }
         } catch (error) {
             setError('An error occurred. Please try again.');
-            console.log("error at signup page catch");
+            // console.log("error at signup page catch");
             console.log(error);
 
         } finally {

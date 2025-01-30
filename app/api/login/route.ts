@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
         // console.log(user);
         
         if (!user) {
-            console.log("Invalid credentials user not found");
+            // console.log("Invalid credentials user not found");
             return NextResponse.json({ message: "Invalid credentials user not found" }, { status: 200 });
         }
         const isPasswordValid = await bcrypt.compare(password, user.password);

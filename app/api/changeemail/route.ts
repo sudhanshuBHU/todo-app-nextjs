@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
         await user.save();
         return new Response('Email changed successfully', { status: 200 });
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         return NextResponse.json({ message: 'An error occurred. Please try again.', error }, { status: 500 });
     }
 }

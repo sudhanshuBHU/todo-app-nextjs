@@ -15,7 +15,7 @@ const Navbar: React.FC = () => {
                     <Link href="/signup">Signup</Link>
                 </li>
                 <li style={styles.navItem}>
-                    <Link href="/routes">All Routes</Link>
+                    <Link href="/allRoutes">All Routes</Link>
                 </li>
             </ul>
         </nav>

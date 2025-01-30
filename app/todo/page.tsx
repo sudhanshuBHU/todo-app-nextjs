@@ -137,7 +137,7 @@ export default function Home() {
                 }
             });
             const data = await res.json();
-            console.log(data);
+            // console.log(data);
 
             setTodos((prevTodos) => prevTodos.filter(todo => todo._id !== _id));
 
@@ -182,7 +182,7 @@ export default function Home() {
                     data?.todos.forEach((todo: Todo) => {
                         temp.push(todo);
                     });
-                    console.log(temp);
+                    // console.log(temp);
                     setTodos(temp);
 
                 } catch (error) {
