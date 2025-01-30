@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { SquarePen, Trash2 } from 'lucide-react';
 import { url } from '../url';
 import { useRouter } from 'next/navigation';
+import { PuffLoader } from 'react-spinners';
 
 
 interface Todo {
@@ -26,6 +27,8 @@ export default function Home() {
     const [loading, setLoading] = useState(false);
     const router = useRouter();
     // console.log(count);
+
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         let user = localStorage.getItem('user') as string;
@@ -200,16 +203,14 @@ export default function Home() {
                         <Link href={'/profile'} className='mr-5'>
                             <h2 className='text-2xl font-bold text-blue-800 cursor-pointer'>Profile</h2>
                         </Link>
-                        {/* <Link href='/' className='flex justify-center'> */}
-                            <button onClick={() => {
-                                localStorage.removeItem('user');
-                                localStorage.removeItem('token');
-                                localStorage.removeItem('name');
-                                localStorage.removeItem('email');
-                                router.push('/');
-                            }}
-                                className='text-white bg-red-500 rounded px-2'>Logout</button>
-                        {/* </Link> */}
+                        <button onClick={() => {
+                            localStorage.removeItem('user');
+                            localStorage.removeItem('token');
+                            localStorage.removeItem('name');
+                            localStorage.removeItem('email');
+                            router.push('/');
+                        }}
+                            className='text-white bg-red-500 rounded px-2'>Logout</button>
                     </div>
                 </div>
 
@@ -251,39 +252,51 @@ export default function Home() {
                     </button>
                 </form>
 
-                <div className="space-y-4">
-                    {todos.map((todo) => (
-                        <div key={todo._id} className="flex items-center p-4 border-b">
-                            <input
-                                type="checkbox"
-                                checked={todo.completed}
-                                onChange={() => handleToggle(todo._id)}
-                                className="mr-4"
-                            />
-                            <div className="flex-1">
-                                <h3 className={`font-medium ${todo.completed ? 'line-through' : ''}`}>
-                                    {todo.title}
-                                </h3>
-                                <p className="text-gray-600">{todo.description}</p>
-                            </div>
-                            <button
-                                onClick={() => {
-                                    handleEdit(todo._id);
-                                }}
-                                className="text-green-500 hover:text-green-700"
-                            >
-                                <SquarePen />
-                            </button>
-                            <button
-                                onClick={() => {
-                                    handleDelete(todo._id);
-                                }}
-                                className="ml-4 text-red-500 hover:text-red-700"
-                            >
-                                <Trash2 />
-                            </button>
+                <div className='flex justify-center items-center'>
+                    {
+                        loading &&
+                        <PuffLoader color="#000000" size={80} />
+
+                    }
+                    {
+                        !loading &&
+                        <div className="space-y-4 w-full">
+                            {todos.sort((e) => {
+                                return e.completed ? 1 : -1;
+                            }).map((todo) => (
+                                <div key={todo._id} className="flex items-center p-4 border-b border-gray-300 ">
+                                    <input
+                                        type="checkbox"
+                                        checked={todo.completed}
+                                        onChange={() => handleToggle(todo._id)}
+                                        className="mr-4"
+                                    />
+                                    <div className="flex-1">
+                                        <h3 className={`font-medium ${todo.completed ? 'line-through' : ''}`}>
+                                            {todo.title}
+                                        </h3>
+                                        <p className="text-gray-600 max-h-32 overflow-scroll">{todo.description}</p>
+                                    </div>
+                                    <button
+                                        onClick={() => {
+                                            handleEdit(todo._id);
+                                        }}
+                                        className="text-green-500 hover:text-green-700"
+                                    >
+                                        <SquarePen />
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            handleDelete(todo._id);
+                                        }}
+                                        className="ml-4 text-red-500 hover:text-red-700"
+                                    >
+                                        <Trash2 />
+                                    </button>
+                                </div>
+                            ))}
                         </div>
-                    ))}
+                    }
                 </div>
             </div>
         </div>
