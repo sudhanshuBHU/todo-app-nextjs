@@ -129,16 +129,13 @@ export default function Home() {
         setLoading(true);
 
         try {
-            const res = await fetch(`${url}/api/todos/${_id}`, {
+            await fetch(`${url}/api/todos/${_id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 }
             });
-            const data = await res.json();
-            // console.log(data);
-
             setTodos((prevTodos) => prevTodos.filter(todo => todo._id !== _id));
 
         } catch (error) {
