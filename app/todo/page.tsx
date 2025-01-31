@@ -261,8 +261,10 @@ export default function Home() {
                     {
                         !loading &&
                         <div className="space-y-4 w-full">
-                            {todos.sort((e) => {
-                                return e.completed ? 1 : -1;
+                            {todos.sort((a, b) => {
+                                if (b.completed  === false && a.completed === true) return 1;
+                                if (b.completed === true && a.completed === false) return -1;
+                                return 0;
                             }).map((todo) => (
                                 <div key={todo._id} className="flex items-center p-4 border-b border-gray-300 ">
                                     <input
